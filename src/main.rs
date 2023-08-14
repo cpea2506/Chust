@@ -2,6 +2,7 @@ mod board;
 mod pieces;
 
 use bevy::prelude::*;
+use bevy_mod_picking::prelude::*;
 
 use board::BoardPlugin;
 use pieces::PiecePlugin;
@@ -19,6 +20,7 @@ fn main() {
                 }),
                 ..default()
             }),
+            DefaultPickingPlugins,
             BoardPlugin,
             PiecePlugin,
         ))
@@ -26,16 +28,17 @@ fn main() {
 }
 
 fn setup(mut commands: Commands) {
-    // Camera
-    commands.spawn(Camera3dBundle {
-        transform: Transform::from_matrix(Mat4::from_rotation_translation(
-            Quat::from_xyzw(-0.3, -0.5, -0.3, 0.5).normalize(),
-            Vec3::new(-7.0, 20.0, 4.0),
-        )),
-        ..Default::default()
-    });
+    commands.spawn((
+        Camera3dBundle {
+            transform: Transform::from_matrix(Mat4::from_rotation_translation(
+                Quat::from_xyzw(-0.3, -0.5, -0.3, 0.5).normalize(),
+                Vec3::new(-7.0, 20.0, 4.0),
+            )),
+            ..Default::default()
+        },
+        RaycastPickCamera::default(),
+    ));
 
-    // Light
     commands.spawn(PointLightBundle {
         transform: Transform::from_translation(Vec3::new(4.0, 8.0, 4.0)),
         ..Default::default()
