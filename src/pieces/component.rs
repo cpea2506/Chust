@@ -2,13 +2,13 @@ use bevy::prelude::*;
 
 use super::assets::PieceAssets;
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 pub enum PieceColor {
     White,
     Black,
 }
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 pub enum PieceType {
     King,
     Queen,
@@ -18,7 +18,7 @@ pub enum PieceType {
     Pawn,
 }
 
-#[derive(Component)]
+#[derive(Component, Debug)]
 pub struct Piece {
     pub piece_type: PieceType,
     pub color: PieceColor,

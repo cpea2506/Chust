@@ -1,5 +1,5 @@
 mod assets;
-mod component;
+pub mod component;
 
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
@@ -12,7 +12,14 @@ pub struct PiecePlugin;
 impl Plugin for PiecePlugin {
     fn build(&self, app: &mut App) {
         app.init_collection::<PieceAssets>()
-            .add_systems(Startup, (create_white_pieces, create_black_pieces));
+            .add_systems(Startup, (create_white_pieces, create_black_pieces))
+            .add_systems(Update, move_piece);
+    }
+}
+
+fn move_piece(mut query: Query<(&mut Transform, &Piece)>) {
+    for (mut transform, piece) in query.iter_mut() {
+        transform.translation = Vec3::new(piece.position.x, 0.0, piece.position.y);
     }
 }
 

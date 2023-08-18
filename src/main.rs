@@ -14,13 +14,15 @@ fn main() {
         .add_plugins((
             DefaultPlugins.set(WindowPlugin {
                 primary_window: Some(Window {
-                    resolution: (1600., 1600.).into(),
+                    resolution: (800., 800.).into(),
                     title: String::from("Chust"),
                     ..default()
                 }),
                 ..default()
             }),
-            DefaultPickingPlugins,
+            DefaultPickingPlugins
+                .build()
+                .disable::<DebugPickingPlugin>(),
             BoardPlugin,
             PiecePlugin,
         ))
