@@ -18,6 +18,11 @@ pub enum PieceType {
     Pawn,
 }
 
+#[derive(Resource, Default)]
+pub struct SelectedPiece {
+    pub entity: Option<Entity>,
+}
+
 #[derive(Component, Debug)]
 pub struct Piece {
     pub piece_type: PieceType,

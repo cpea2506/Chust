@@ -16,8 +16,3 @@ impl Square {
 pub struct SelectedSquare {
     pub entity: Option<Entity>,
 }
-
-#[derive(Resource, Default)]
-pub struct SelectedPiece {
-    pub entity: Option<Entity>,
-}
