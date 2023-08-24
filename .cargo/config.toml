@@ -2,12 +2,12 @@
 watch_run = "watch -cx run"
 run_wasm = "run --target wasm32-unknown-unknown"
 
-# [target.aarch64-apple-darwin]
-# rustflags = [
-#     "-C",
-#     "link-arg=-fuse-ld=/opt/homebrew/bin/zld",
-#     "-Zshare-generics=y",
-# ]
+[target.aarch64-apple-darwin]
+rustflags = [
+    "-C",
+    "link-arg=-fuse-ld=/opt/homebrew/bin/zld",
+    "-Zshare-generics=y",
+]
 
 [target.wasm32-unknown-unknown]
 runner = "wasm-server-runner"
