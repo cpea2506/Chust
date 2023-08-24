@@ -63,8 +63,8 @@ fn select_square(
         if let Some(selected_piece_entity) = selected_piece.entity {
             // Move the selected piece to the selected square
             if let Ok((_, mut piece)) = pieces_query.get_mut(selected_piece_entity) {
-                piece.position.x = square.x as f32;
-                piece.position.y = square.y as f32;
+                piece.position.x = square.x;
+                piece.position.y = square.y;
             }
 
             selected_square.entity = None;
@@ -72,7 +72,7 @@ fn select_square(
         } else {
             // Select the piece in the currently selected square
             for (piece_entity, piece) in pieces_query.iter_mut() {
-                if piece.position.x as u8 == square.x && piece.position.y as u8 == square.y {
+                if piece.position.x == square.x && piece.position.y == square.y {
                     // piece_entity is now the entity in the same square
                     selected_piece.entity = Some(piece_entity);
                     break;

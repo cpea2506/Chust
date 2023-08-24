@@ -14,7 +14,7 @@ fn main() {
         .add_plugins((
             DefaultPlugins.set(WindowPlugin {
                 primary_window: Some(Window {
-                    resolution: (800., 800.).into(),
+                    resolution: (1600., 1600.).into(),
                     title: String::from("Chust"),
                     ..default()
                 }),
