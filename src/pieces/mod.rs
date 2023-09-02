@@ -13,11 +13,11 @@ impl Plugin for PiecePlugin {
     fn build(&self, app: &mut App) {
         app.init_collection::<PieceAssets>()
             .add_systems(Startup, (create_white_pieces, create_black_pieces))
-            .add_systems(Update, move_piece);
+            .add_systems(Update, move_pieces);
     }
 }
 
-fn move_piece(mut query: Query<(&mut Transform, &Piece)>) {
+fn move_pieces(mut query: Query<(&mut Transform, &Piece)>) {
     for (mut transform, piece) in query.iter_mut() {
         transform.translation = Vec3::new(piece.position.x as f32, 0., piece.position.y as f32);
     }

@@ -1,11 +1,17 @@
 mod board;
 mod pieces;
+mod taken;
+mod turn;
+mod ui;
 
 use bevy::prelude::*;
 use bevy_mod_picking::prelude::*;
 
 use board::BoardPlugin;
 use pieces::PiecePlugin;
+use taken::TakenPlugin;
+use turn::TurnPlugin;
+use ui::UIPlugin;
 
 fn main() {
     App::new()
@@ -25,6 +31,9 @@ fn main() {
                 .disable::<DebugPickingPlugin>(),
             BoardPlugin,
             PiecePlugin,
+            TurnPlugin,
+            UIPlugin,
+            TakenPlugin,
         ))
         .run();
 }

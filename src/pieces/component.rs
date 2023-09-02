@@ -18,11 +18,6 @@ pub enum PieceType {
     Pawn,
 }
 
-#[derive(Resource, Default)]
-pub struct SelectedPiece {
-    pub entity: Option<Entity>,
-}
-
 #[derive(Debug, Clone, Copy)]
 pub struct Position {
     pub x: u8,
