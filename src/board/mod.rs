@@ -51,6 +51,7 @@ fn create_board(
 }
 
 fn select_square(
+    mut commands: Commands,
     event: Listener<Pointer<Click>>,
     squares_query: Query<&Square>,
     mut selected_square: ResMut<SelectedSquare>,
@@ -61,10 +62,27 @@ fn select_square(
         selected_square.entity = Some(event.target);
 
         if let Some(selected_piece_entity) = selected_piece.entity {
+            let pieces_vec: Vec<Piece> = pieces_query.iter_mut().map(|(_, piece)| *piece).collect();
+            let pieces_entity_vec: Vec<(Entity, Piece)> = pieces_query
+                .iter_mut()
+                .map(|(entity, piece)| (entity, *piece))
+                .collect();
+
             // Move the selected piece to the selected square
             if let Ok((_, mut piece)) = pieces_query.get_mut(selected_piece_entity) {
-                piece.position.x = square.x;
-                piece.position.y = square.y;
+                if piece.is_move_valid(Position::new(square.x, square.y), pieces_vec) {
+                    // Check if a piece of the opposite color exists in this square and despawn it
+                    for &(other_entity, other_piece) in &pieces_entity_vec {
+                        if other_piece.position.x == square.x
+                            && other_piece.position.y == square.y
+                            && other_piece.color != piece.color
+                        {
+                            commands.entity(other_entity).despawn();
+                        }
+                    }
+                    piece.position.x = square.x;
+                    piece.position.y = square.y;
+                }
             }
 
             selected_square.entity = None;
